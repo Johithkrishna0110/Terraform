@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = 'us-east-1' // Replace with your desired region
+        AWS_ACCESS_KEY_ID = credentials('accesskey')
+        AWS_SECRET_ACCESS_KEY = credentials('secretkey')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your version control
+                git branch: 'main', url: 'https://github.com/Johithkrishna0110/Terraform.git'
+            }
+        }
+
+        stage('Terraform Destroy') {
+            steps {
+                script {
+                    // Initialize Terraform
+                    sh 'terraform destroy'
+                }
+            }
+        }
