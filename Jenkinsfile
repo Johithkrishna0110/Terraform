@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from your version control
-                git branch: 'main', url: 'https://github.com/Johithkrishna0110/Terraform/tree/43c0317c83a2479efa8408cc8e4c3fc861d49ed8/module1'
+                git branch: 'main', url: 'https://github.com/Johithkrishna0110/Terraform.git'
             }
         }
 
