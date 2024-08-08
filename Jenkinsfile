@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        TF_WORKSPACE = 'your-workspace'
-        TF_ORG = 'your-organization'
+        TF_WORKSPACE = 'Pre-Prod'
+        TF_ORG = 'johithsorg'
         TF_API_TOKEN = credentials('terraform-cloud-api-token')
     }
 
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        echo $TF_API_TOKEN | terraform login
+                        yes | terraform login
                         terraform init -backend-config="organization=${TF_ORG}" -backend-config="workspaces.name=${TF_WORKSPACE}"
                     '''
                 }
