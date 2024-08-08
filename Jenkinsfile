@@ -2,24 +2,26 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'us-east-1' // Replace with your desired region
-        AWS_ACCESS_KEY_ID = credentials('accesskey')
-        AWS_SECRET_ACCESS_KEY = credentials('secretkey')
+        TF_WORKSPACE = 'your-workspace'
+        TF_ORG = 'your-organization'
+        TF_API_TOKEN = credentials('terraform-cloud-api-token')
     }
 
     stages {
         stage('Checkout') {
             steps {
                 // Checkout the code from your version control
-                git branch: 'main', url: 'https://github.com/Johithkrishna0110/Terraform.git'
+                git branch: 'terraform', url: 'https://github.com/Johithkrishna0110/Terraform.git'
             }
         }
 
-        stage('Terraform Init') {
+        stage('Initialize Terraform') {
             steps {
                 script {
-                    // Initialize Terraform
-                    sh 'terraform init'
+                    sh '''
+                        echo $TF_API_TOKEN | terraform login
+                        terraform init -backend-config="organization=${TF_ORG}" -backend-config="workspaces.name=${TF_WORKSPACE}"
+                    '''
                 }
             }
         }
