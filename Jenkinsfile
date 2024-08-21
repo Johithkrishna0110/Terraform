@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TF_WORKSPACE = 'Pre-Prod'
+        TF_WORKSPACE = 'int'
         TF_ORG = 'johithsorg'
         TF_API_TOKEN = credentials('terraform-cloud-api-token')
     }
@@ -26,6 +26,15 @@ pipeline {
                     
                     // Initialize Terraform
                     sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Plan') {
+            steps {
+                script {
+                    // Run Terraform plan to see what changes will be made
+                    sh 'terraform plan'
                 }
             }
         }
