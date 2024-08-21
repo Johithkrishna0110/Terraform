@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        terraform init -backend-config="organization=${TF_ORG}" -backend-config="workspaces.name=${TF_WORKSPACE}"
+                        terraform init
                     '''
                 }
             }
