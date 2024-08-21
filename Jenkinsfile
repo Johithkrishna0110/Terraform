@@ -30,15 +30,6 @@ pipeline {
             }
         }
 
-        stage('Terraform Plan') {
-            steps {
-                script {
-                    // Create a Terraform plan
-                    sh 'terraform plan -out=tfplan'
-                }
-            }
-        }
-
         stage('Terraform Action') {
             steps {
                 script {
