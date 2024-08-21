@@ -18,9 +18,14 @@ pipeline {
         stage('Initialize Terraform') {
             steps {
                 script {
+                    // Write the token to the Terraform credentials file
                     sh '''
-                        terraform init
+                    mkdir -p ~/.terraform.d
+                    echo '{ "credentials": { "app.terraform.io": { "token": "'$TF_API_TOKEN'" } } }' > ~/.terraform.d/credentials.tfrc.json
                     '''
+                    
+                    // Initialize Terraform
+                    sh 'terraform init'
                 }
             }
         }
