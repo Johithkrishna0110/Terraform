@@ -2,7 +2,7 @@ terraform {
   cloud {
     organization = "johithsorg"
     workspaces {
-      name = "Pre-Prod"
+      name = "int"
     }
   }
   required_providers {
